@@ -1,13 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: 'Cairo', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.sideNav {
+    width: 20%;
+    height: 100vh;
+    background: slategrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navTop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navBot {
+    display: flex;
+    justify-content: center;
+}
+
+.navBtn {
+    border: none;
+    background: none;
+}
+
+.navBtnImg {
+    width: 4vw;
+}
+
+.socialBtn {
+    width: 3vw;
+}
+
+.mainBody {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
