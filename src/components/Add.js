@@ -19,7 +19,7 @@ const Add = (props) => {
         <>
             <details>
                 <summary>Add a Todo</summary>
-                <form onSubmit={handleSubmit}>
+                <form className="addForm"onSubmit={handleSubmit}>
                     <label htmlFor="title">Title:</label>
                     <br />
                     <input type="text" name="title" onChange={handleChange}/>

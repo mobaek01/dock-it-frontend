@@ -10,9 +10,10 @@ body {
     display: flex;
 }
 
+/* ///////////////////////////// NAVIGATION BAR /////////////////////////// */
+
 .sideNav {
     width: 20%;
-    height: 100vh;
     background: slategrey;
     display: flex;
     flex-direction: column;
@@ -43,9 +44,17 @@ body {
     width: 3vw;
 }
 
+/* ======================================================================== */
+
+/* ////////////////////////////////// BODY //////////////////////////////// */
+
 .mainBody {
     width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+
+
+/* ======================================================================== */

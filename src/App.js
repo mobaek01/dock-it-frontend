@@ -5,6 +5,8 @@ import moment from 'moment'
 // COMPONENTS //
 import Add from './components/Add'
 import Edit from './components/Edit'
+import CreateUser from './components/CreateUser'
+import Login from './components/Login'
 
 const App = () => {
 
@@ -13,15 +15,18 @@ const App = () => {
     // const backend_url = "https://calendr-it.herokuapp.com"
 
     let [todos, setTodos] = useState([])
+    let [users, setUsers] = useState([])
+    let [currentUser, setCurrentUser] = useState({})
     let [sideNav, setSideNav] = useState(false)
 
+    /////////////////////////////// TODO ////////////////////////////////////
     // READ
     const getTodos = () => {
         axios
             .get(backend_url + '/todos')
             .then((response) => {
                 setTodos(response.data)
-                console.log(todos);
+                // console.log(todos);
             })
     }
 
@@ -30,8 +35,8 @@ const App = () => {
         axios
             .post(backend_url + '/todos', addTodo)
             .then((response) => {
-                console.log(response);
-                console.log(addTodo);
+                // console.log(response);
+                // console.log(addTodo);
                 getTodos()
             })
     }
@@ -42,7 +47,7 @@ const App = () => {
             .put(backend_url + `/todos/${updatedTodo.todo_id}`, updatedTodo)
             .then((response) => {
                 getTodos()
-                console.log(updatedTodo);
+                // console.log(updatedTodo);
             })
     }
 
@@ -51,10 +56,44 @@ const App = () => {
         axios
             .delete(backend_url + `/todos/${event.target.value}`)
             .then((response) => {
-                console.log(event.target.value);
+                // console.log(event.target.value);
                 getTodos()
             })
     }
+
+    //=====================================================================//
+
+    /////////////////////////////// USER ///////////////////////////////////
+
+    const getUsers = () => {
+        axios
+            .get(backend_url + '/todos/userCreate')
+            .then((response) => {
+                setUsers(response.data)
+                console.log(response.data);
+            })
+    }
+
+    const handleUserCreate = (addUser) => {
+        axios
+            .post(backend_url + '/todos/userCreate', addUser)
+            .then((response) => {
+                // console.log(response);
+                // console.log(addTodo);
+                getUsers()
+            })
+    }
+
+    const handleLogin = (checkUser) => {
+        axios
+            .put(backend_url + '/todos/login', checkUser)
+            .then((response) => {
+                setCurrentUser(response.data)
+                console.log(response.data.error);
+            })
+    }
+
+    //=====================================================================//
 
     const revealSideNav = () => {
         sideNav ? setSideNav(false) : setSideNav(true)
@@ -62,6 +101,7 @@ const App = () => {
 
     useEffect(() => {
         getTodos()
+        getUsers()
     },[])
 
     return (
@@ -70,25 +110,24 @@ const App = () => {
             <>
                 <div className = "sideNav">
                     <div className = 'navTop'>
-                        <h3>Username</h3>
-                        <button>Login</button>
-                        <button>Register</button>
+                        <h4>{users[0].user_name}</h4>
+                        <CreateUser handleUserCreate={handleUserCreate}/>
                         <br/>
-                        <Add handleCreate={handleCreate}/>
+                        <Login handleLogin={handleLogin}/>
                     </div>
-                    <div class = "navBot">
-                        <a href="www.linkedin.com/in/moses-baek"><img className="socialBtn" src="/linkedin.png"/></a>
-                        <a href="https://github.com/mobaek01"><img className="socialBtn" src="/github.png"/></a>
+                    <div className = "navBot">
+                        <a href="www.linkedin.com/in/moses-baek"><img className="socialBtn" src="/linkedin.png" alt=""/></a>
+                        <a href="https://github.com/mobaek01"><img className="socialBtn" src="/github.png" alt=""/></a>
                     </div>
                 </div>
             </>
             :
             <></>}
-
             <div className="sidenavToggle">
-                <button className = "navBtn" onClick={revealSideNav}><img className = "navBtnImg" src ="/3lines.png"/></button>
+                <button className = "navBtn" onClick={revealSideNav}><img className = "navBtnImg" src ="/3lines.png" alt=""/></button>
             </div>
             <div className = "mainBody">
+                <Add handleCreate={handleCreate}/>
                 <h1>Todo List</h1>
                 <div>
                     {todos.map((todo) => {
