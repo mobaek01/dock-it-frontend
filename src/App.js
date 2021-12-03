@@ -16,6 +16,7 @@ const App = () => {
 
     let [todos, setTodos] = useState([])
     let [users, setUsers] = useState([])
+    let [error, setError] = useState('')
     let [currentUser, setCurrentUser] = useState({})
     let [sideNav, setSideNav] = useState(false)
 
@@ -89,9 +90,25 @@ const App = () => {
             .put(backend_url + '/todos/login', checkUser)
             .then((response) => {
                 setCurrentUser(response.data)
+                localStorage.setItem('user', JSON.stringify(response.data))
+                setError(response.data.error)
                 console.log(response.data.error);
+
             })
     }
+
+    const handleLogout = () => {
+        setCurrentUser({})
+        localStorage.clear()
+    }
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem('user');
+        if (loggedInUser) {
+            const foundUser = JSON.parse(loggedInUser)
+            setCurrentUser(foundUser)
+        }
+    }, [])
 
     //=====================================================================//
 
@@ -110,10 +127,16 @@ const App = () => {
             <>
                 <div className = "sideNav">
                     <div className = 'navTop'>
-                        <h4>{users[0].user_name}</h4>
+                        {currentUser.length === 1 ?
+                        <div className = "userInfo">
+                            <h4>Welcome, {currentUser[0].user_name}</h4>
+                            <button onClick={handleLogout}>Logout</button>
+                        </div>
+                        :
+                        <></>}
                         <CreateUser handleUserCreate={handleUserCreate}/>
                         <br/>
-                        <Login handleLogin={handleLogin}/>
+                        <Login handleLogin={handleLogin} error={error}/>
                     </div>
                     <div className = "navBot">
                         <a href="www.linkedin.com/in/moses-baek"><img className="socialBtn" src="/linkedin.png" alt=""/></a>
@@ -127,6 +150,7 @@ const App = () => {
                 <button className = "navBtn" onClick={revealSideNav}><img className = "navBtnImg" src ="/3lines.png" alt=""/></button>
             </div>
             <div className = "mainBody">
+
                 <Add handleCreate={handleCreate}/>
                 <h1>Todo List</h1>
                 <div>

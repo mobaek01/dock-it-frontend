@@ -27,6 +27,10 @@ const Login = (props) => {
                     <input type="password" name="password" onChange={handleChange}/>
                     <input type="submit" value="Login" />
                 </form>
+                {props.error ?
+                <p>{props.error}</p>
+                :
+                <></>}
             </details>
         </>
     )
