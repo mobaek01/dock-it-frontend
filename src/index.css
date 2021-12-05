@@ -10,11 +10,29 @@ body {
     display: flex;
 }
 
+.containerLeft {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.containerRight {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-content: flex-start;
+    justify-content: center;
+}
+
 /* ///////////////////////////// NAVIGATION BAR /////////////////////////// */
 
 .sideNav {
-    width: 20%;
+    padding: 2%;
+    width: 90%;
     background: slategrey;
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -26,9 +44,25 @@ body {
     align-items: center;
 }
 
+.loggedOut {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loggedOutLeft {
+    width: 50%;
+    margin-right: 4%;
+}
+
+.loggedOutRight {
+    width: 50%;
+}
+
 .navBot {
     display: flex;
     justify-content: center;
+    margin-top: 4%;
 }
 
 .navBtn {
